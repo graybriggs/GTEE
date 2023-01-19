@@ -59,7 +59,6 @@ public slots:
 
     void loadNewTilesheet(QString filename);
 
-
 private:
 
     void initTileLayers();

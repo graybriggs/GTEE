@@ -81,7 +81,12 @@ void mouseKeyComboEvent(QMouseEvent* mouseEvent, QKeyEvent* keyEvent) {
 void TileSelection::loadTilesheet() {
 
     tilesheetName = "smb_tilesheet.png";
-    qDebug() << "Loading tilesheet " << tilesheetName;
+    QString* msg = new QString("Loading " + tilesheetName);
+
+    qDebug() << *msg;
+
+    emit sendConsoleMessage(*msg);
+
     img = new QImage(tilesheetName);
 
     for (int i = 0; i < 5 * 5; ++i) {
@@ -89,6 +94,8 @@ void TileSelection::loadTilesheet() {
         selectedTiles[i]->convertFromImage(*img);
     }
     scene->addPixmap(*selectedTiles[0]);
+
+    drawGridOverlay();
     //scene->update();
 }
 

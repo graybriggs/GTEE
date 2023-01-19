@@ -49,6 +49,17 @@ MainWindow::MainWindow(QWidget *parent)
         tileSelection, SLOT(loadTilesheet())
     );
 
+
+    messageOutput = new QString();
+    messageOutput->append("GTEE v0.1 (testing)\n");
+
+    ui->label->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+    ui->label->setText(*messageOutput);
+
+    QObject::connect(
+        tileSelection, SIGNAL(sendConsoleMessage(QString)),
+        this, SLOT(receiveConsoleMessage(QString))
+    );
 }
 
 MainWindow::~MainWindow()
@@ -157,5 +168,9 @@ void MainWindow::updateCollisionButton() {
         ui->collisionPushButton->setStyleSheet("QPushButton { background-color: grey; }\n"
                               "QPushButton:enabled { background-color: light grey; }\n");
     }
+}
 
+void MainWindow::receiveConsoleMessage(QString msg) {
+    messageOutput->append(msg + "\n");
+    ui->label->setText(*messageOutput);
 }

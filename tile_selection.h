@@ -29,6 +29,7 @@ signals:
     void selectedTileImage(QImage img);
     void leftClickMouse();
     void newTilesheetLoad(QString);
+    void sendConsoleMessage(QString);
 
 public slots:
     void loadTilesheet();

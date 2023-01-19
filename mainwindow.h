@@ -28,12 +28,15 @@ public:
 
 private slots:
     void updateCollisionButton();
+    void receiveConsoleMessage(QString);
 
 private:
     Ui::MainWindow *ui;
 
     TileSelection* tileSelection;
     TileMapRender* tileMap;
+
+    QString* messageOutput;
 
     // menu pointer variables
     QMenuBar* menuBar;
