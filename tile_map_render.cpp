@@ -48,28 +48,7 @@ void TileMapRender::setupScene() {
 
     //graphicsView = new QGraphicsView(this);
 
-    /*
 
-    //sceneTwo = new QGraphicsScene(this);
-    sceneTwo = std::make_unique<QGraphicsScene>(this);
-    sceneTwo->setSceneRect(0, 0, sceneWidth, sceneHeight);
-
-    //sceneThree = new QGraphicsScene(this);
-    sceneThree = std::make_unique<QGraphicsScene>(this);
-    sceneThree->setSceneRect(0, 0, sceneWidth, sceneHeight);
-
-    //sceneFour = new QGraphicsScene(this);
-    sceneFour = std::make_unique<QGraphicsScene>(this);
-    sceneFour->setSceneRect(0, 0, sceneWidth, sceneHeight);
-
-    //sceneCollision = new QGraphicsScene(this);
-    sceneCollision = std::make_unique<QGraphicsScene>(this);
-    sceneCollision->setSceneRect(0, 0, sceneWidth, sceneHeight);
-
-    //finalRenderScene = new QGraphicsScene(this);
-    finalRenderScene = std::make_unique<QGraphicsScene>(this);
-    finalRenderScene->setSceneRect(0, 0, sceneWidth, sceneHeight);
-    */
     this->setScene(sceneOne.get());
     //selectLayerOne(); // currentLayer member variable initialization is handled here (instead of in the initialisation list)!
     //pm = new QPixmap;
@@ -152,27 +131,12 @@ void TileMapRender::initTileLayers() {
             sceneOne->addItem(pmItem1.get());
             tileLayerOne.push_back(std::move(pmItem1));
 
-            /*
-            auto pmItem2 = std::make_unique<QGraphicsPixmapItem>();
-            pmItem2->setOffset(x, y);
-            sceneTwo->addItem(pmItem2.get());
-            tileLayerTwo.push_back(std::move(pmItem2));
+            auto col = std::make_unique<QGraphicsRectItem>();
+            col->setPos(QPoint(x, y));
+            col->setBrush(Qt::red);
+            col->setOpacity(0.4);
+            collisionLayer.push_back(std::move(col));
 
-            auto pmItem3 = std::make_unique<QGraphicsPixmapItem>();
-            pmItem3->setOffset(x, y);
-            sceneThree->addItem(pmItem3.get());
-            tileLayerThree.push_back(std::move(pmItem3));
-
-            auto pmItem4 = std::make_unique<QGraphicsPixmapItem>();
-            pmItem4->setOffset(x, y);
-            sceneFour->addItem(pmItem4.get());
-            tileLayerFour.push_back(std::move(pmItem4));
-
-            auto pmItem5 = std::make_unique<QGraphicsPixmapItem>();
-            pmItem5->setOffset(x, y);
-            sceneCollision->addItem(pmItem5.get());
-            tileLayerCollision.push_back(std::move(pmItem5));
-            */
             x += 32;
         }
         x = 0;
@@ -200,6 +164,14 @@ void TileMapRender::addTile() {
     selectedTile->setPixmap(pm->copy(0,0,32,32));
 */
     switch (currentLayer) {
+    case 0:
+        qDebug() << "Writing to collision layer";
+        /*
+        tileHighlight->setPos(QPoint(curTileX, curTileY));
+        tileHighlight->setBrush(Qt::red);
+        tileHighlight->setOpacity(0.4);
+        scene->addItem(tileHighlight);
+        */
     case 1:
         qDebug() << "Writing to layer: 1";
         tileLayerOne[index]->setPixmap(selected_tiles[0]->copy(0,0,32,32));
@@ -224,7 +196,6 @@ void TileMapRender::selectLayerOne() {
     currentLayer = 1;
     this->setScene(sceneOne.get());
     sceneOne->update();
-
 }
 
 

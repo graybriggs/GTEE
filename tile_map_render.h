@@ -76,6 +76,7 @@ private:
     QGraphicsView* graphicsView;
 
     std::vector<std::unique_ptr<QGraphicsPixmapItem>> tileLayerOne;
+    std::vector<std::unique_ptr<QGraphicsRectItem>> collisionLayer;
 
     // points to the tile(s) that are currently selected to 'paint'
     // it is updated by the updateSelectedTile slot
